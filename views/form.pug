@@ -1,0 +1,45 @@
+html
+  head
+    title Find user
+    script(src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+        crossorigin="anonymous")
+    style.
+      h1, h3, p {
+        margin-left: 10px;
+      }
+
+      input[type=text] {
+        margin: 10px;
+        width: 400px;
+        height: 30px;
+      }
+
+      input[type=submit]{
+        margin: 10px;
+        height: 30px;
+      }
+
+  body
+    include nav.pug
+    br
+    br
+    br
+
+    h1 Who are you looking for?
+    form(method="POST" action="/searchUsers")
+      input(type="text" name="name" placeholder="Firstname")
+      input(type="text" name="lastname" placeholder="Lastname")
+      input(type="submit" value="search")
+
+    //- h3 Did you mean?
+
+    //- p Suggestion
+
+    //- script.
+    //-   $(document).ready(function() {
+    //-     $.post("http://localhost:3000/suggestion", {suggestion: "Al"}, function(data) {
+    //-       console.log("did you mean", data)
+    //-       $("p").html(data.suggestion[0])
+    //-       })
+    //-     })

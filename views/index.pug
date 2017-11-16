@@ -1,0 +1,15 @@
+html
+  head
+    title All users
+
+  body
+    include nav.pug
+    br
+    br
+    br
+    h1 All users
+    -for (var i = 0; i <users.length; i++)
+      ul
+        li #{users[i].firstname} #{users[i].lastname}, email: #{users[i].email}
+
+
