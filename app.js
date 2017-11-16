@@ -70,14 +70,14 @@ app.post("/createUser", function(req, res) {
 
   })
 })
-/*
-app.post("/suggestion", function(req, res) {
-  var suggest = req.body.name
-  console.log("the suggestion", suggest)
-  res.json({status: 200, suggestion: ["Alexandre", "Alex"]})
-})
 
 var server = app.listen(3000, () => {
   console.log("listening")
 });
+
+/*app.post("/suggestion", function(req, res) {
+  var suggest = req.body.name
+  console.log("the suggestion", suggest)
+  res.json({status: 200, suggestion: ["Alexandre", "Alex"]})
+})
 */
