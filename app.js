@@ -72,12 +72,29 @@ app.post("/createUser", function(req, res) {
 })
 
 var server = app.listen(3000, () => {
-  console.log("listening")
+  console.log("listening to port 3000")
 });
 
-/*app.post("/suggestion", function(req, res) {
-  var suggest = req.body.name
-  console.log("the suggestion", suggest)
-  res.json({status: 200, suggestion: ["Alexandre", "Alex"]})
+app.post("/suggestion", function(req, res) {
+  fs.readFile("users.json", function (err, data) {
+    if (err) {
+        throw err;
+    }
+
+    var users = JSON.parse(data)
+    var searchInput = req.body.suggest
+    var partialMatch = []
+    console.log(searchInput)
+
+    for (var i = 0; i < users.length; i++){
+      if (users[i].firstname.slice (0, searchInput.length) == searchInput ||
+        users[i].lastname.slice(0, searchInput.length) == searchInput){
+        partialMatch.push(users[i])
+        console.log(partialMatch)
+      }
+    }
+    res.json({status:200, suggest: partialMatch})
+  })
 })
-*/
+
+

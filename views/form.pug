@@ -1,9 +1,10 @@
 html
   head
     title Find user
-    script(src="https://code.jquery.com/jquery-3.2.1.js"
-        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-        crossorigin="anonymous")
+    script(src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+    crossorigin="anonymous")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+
     style.
       h1, h3, p {
         margin-left: 10px;
@@ -28,18 +29,54 @@ html
 
     h1 Who are you looking for?
     form(method="POST" action="/searchUsers")
-      input(type="text" name="name" placeholder="Firstname")
-      input(type="text" name="lastname" placeholder="Lastname")
+      input(type="text" name="name" id="autocomplete" placeholder="Firstname")
+      //- input(type="text" name="lastname" placeholder="Lastname")
       input(type="submit" value="search")
 
-    //- h3 Did you mean?
+    h3 Did you mean?
 
-    //- p Suggestion
+    ul(id="suggestionlist")
 
-    //- script.
-    //-   $(document).ready(function() {
-    //-     $.post("http://localhost:3000/suggestion", {suggestion: "Al"}, function(data) {
-    //-       console.log("did you mean", data)
-    //-       $("p").html(data.suggestion[0])
-    //-       })
-    //-     })
+    script.
+      $(document).ready(function() {
+        var previousStamp = Date.now()
+
+          $("#autocomplete").keyup(function() {
+            if(Date.now() - 300 < previousStamp){
+              previousStamp = Date.now();
+              console.log("please wait")
+              return
+          }
+
+          previousStamp = Date.now()
+
+            var input = $("#autocomplete").val();
+            console.log(input)
+            $.post("http://localhost:3000/suggestion", {suggest: input}, function(data, err) {
+            console.log(data.suggest)
+              $(".list").remove()
+              for (var i = 0; i < data.suggest.length; i++){
+                $("#suggestionlist").append("<li class='list'>" + data.suggest[i].firstname + " " + data.suggest[i].lastname + "</li>")
+              }
+            })
+          })
+        })
+
+
+//- url
+//- method
+//- datayoursending {someKey: someValue}
+//- callback function to handle response of the server
+
+//- $.post("url", dataYUoursending, function(data,err){
+//-   console.log(data)
+//- })
+
+  $(document).ready(function() {
+    var input = $("#autocomplete").val()
+    console.log(input)
+    ("http://localhost:3000/suggestion", {suggestion: "Al"}, function(data) {
+      console.log("did you mean", data)
+      $("p").html(data.suggestion[0])
+      })
+    })
